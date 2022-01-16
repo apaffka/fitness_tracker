@@ -69,8 +69,9 @@ class Running(Training):
 
     def get_spent_calories(self) -> float:
         """Counts and return calories for running workout"""
-        calories = (((self.coeff_cal_1 * self.get_mean_speed() - self.coeff_cal_2)
-                     * self.weight) / self.M_IN_KM * self.duration * self.time_coeff)
+        calories = (((self.coeff_cal_1 * self.get_mean_speed()
+                    - self.coeff_cal_2) * self.weight) / self.M_IN_KM
+                    * self.duration * self.time_coeff)
         return calories
 
 
@@ -85,13 +86,16 @@ class SportsWalking(Training):
                  weight: float,
                  height: float
                  ) -> None:
-        super().__init__(action, duration, weight)  # inheriting the properties of basic class
+        # inheriting the properties of basic class
+        super().__init__(action, duration, weight)
         self.height = height
 
     def get_spent_calories(self) -> float:
         """Counts and return calories for sports walking workout"""
-        calories = (self.coeff_cal_1 * self.weight + (self.get_mean_speed()**2 // self.height)
-                    * self.coeff_cal_2 * self.weight) * self.duration * self.time_coeff
+        calories = ((self.coeff_cal_1 * self.weight
+                     + (self.get_mean_speed()**2 // self.height)
+                     * self.coeff_cal_2 * self.weight)
+                    * self.duration * self.time_coeff)
         return calories
 
 
@@ -108,18 +112,21 @@ class Swimming(Training):
                  length_pool: float,
                  count_pool: float
                  ) -> None:
-        super().__init__(action, duration, weight)  # inheriting the properties of basic class
+        # inheriting the properties of basic class
+        super().__init__(action, duration, weight)
         self.length_pool = length_pool
         self.count_pool = count_pool
 
     def get_mean_speed(self) -> float:
         """Get the average speed of swimming workout."""
-        speed: float = self.length_pool * self.count_pool / self.M_IN_KM / self.duration
+        speed: float = (self.length_pool * self.count_pool
+                        / self.M_IN_KM / self.duration)
         return speed
 
     def get_spent_calories(self) -> float:
         """Counts and return calories for swimming workout."""
-        calories = (self.get_mean_speed() + self.coeff_cal_1) * self.coeff_cal_2 * self.weight
+        calories = ((self.get_mean_speed() + self.coeff_cal_1)
+                    * self.coeff_cal_2 * self.weight)
         return calories
 
 
@@ -131,7 +138,6 @@ def read_package(workout_type: str, data: list) -> Training:
         'WLK': SportsWalking
     }
     return workout_dict[workout_type](*data)
-
 
 
 def main(training: Training) -> None:
