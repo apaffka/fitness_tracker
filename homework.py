@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Type
 
 
 @dataclass
@@ -53,7 +54,7 @@ class Training:
 
     def show_training_info(self) -> InfoMessage:
         """Return an informational message about the completed workout."""
-        return InfoMessage(self.__class__.__name__,
+        return InfoMessage(type(self).__name__,
                            self.duration,
                            self.get_distance(),
                            self.get_mean_speed(),
@@ -130,7 +131,7 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list[float]) -> Training:
     """Read data from sensors."""
-    workout_dict: dict[str, type(Training)] = {
+    workout_dict: dict[str, Type[Training]] = {
         'SWM': Swimming,
         'RUN': Running,
         'WLK': SportsWalking
