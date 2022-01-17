@@ -48,7 +48,7 @@ class Training:
     def get_spent_calories(self) -> float or str:
         """Get the number of spent calories."""
         # Checking that this method was inherited correctly
-        raise NotImplemented(
+        raise NotImplementedError(
             'Define get_spent_calories в %s.' % (self.__class__.__name__))
 
     def show_training_info(self) -> InfoMessage:
