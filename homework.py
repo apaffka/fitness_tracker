@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Type
+from typing import Type, List, Dict
 
 
 @dataclass
@@ -129,17 +129,18 @@ class Swimming(Training):
         return calories
 
 
-def read_package(workout_type: str, data: list[float]) -> Training:
+def read_package(workout_type: str, data: List[float]) -> Training:
     """Read data from sensors."""
-    workout_dict: dict[str, Type[Training]] = {
+    workout_dict: Dict[str, Type[Training]] = {
         'SWM': Swimming,
         'RUN': Running,
         'WLK': SportsWalking
     }
-    if workout_type in workout_dict:
-        return workout_dict[workout_type](*data)
-    else:
+    # checking workout type for existing
+    if workout_type not in workout_dict:
         raise ValueError('Do not know about this type of training')
+    else:
+        return workout_dict[workout_type](*data)
 
 
 def main(training: Training) -> None:
