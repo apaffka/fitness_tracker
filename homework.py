@@ -139,8 +139,7 @@ def read_package(workout_type: str, data: List[float]) -> Training:
     # checking workout type for existing
     if workout_type not in workout_dict:
         raise ValueError('Do not know about this type of training')
-    else:
-        return workout_dict[workout_type](*data)
+    return workout_dict[workout_type](*data)
 
 
 def main(training: Training) -> None:
